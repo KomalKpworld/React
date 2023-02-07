@@ -34,20 +34,20 @@ const NavBar = () => {
               color="inherit"
               edge="start"
               style={{ outline: "none" }}
-              onClick={() => setMobileOpen((prevMobileOpen)=> !prevMobileOpen)}
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               className={classes.menuButton}
             >
               <Menu />
             </IconButton>
           )}
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
+          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => { }}>
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
           {!isMobile && "Search..."}
           <div>
             {!isAuthenticated ? (
               AccountCircle(
-                <Button color="inherit" onClick={() => {}}>
+                <Button color="inherit" onClick={() => { }}>
                   Login &nsp; <AccountCircle />
                 </Button>
               )
@@ -57,7 +57,7 @@ const NavBar = () => {
                 component={Link}
                 to={`/profile`}
                 className={classes.linkButton}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 {!isMobile && <> My Movies &nbsp;</>}
                 <Avatar
@@ -78,7 +78,7 @@ const NavBar = () => {
               variant="temporary"
               anchor="right"
               open={mobileOpen}
-              onClose = {() => setMobileOpen((prevMobileOpen)=> !prevMobileOpen)}
+              onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               classes={{ paper: classes.drawerPaper }}
               ModalProps={{ keepMounted: true }}
             >

@@ -49,7 +49,7 @@ const SideNavBar = (setMobileOpen) => {
         <ListSubheader> Categories </ListSubheader>
         {demoCategories.map(({ label, value }) => (
           <Link key={value} className={classes.Links} to="/">
-            <ListItem onClick={() => {}} button>
+            <ListItem onClick={() => { }} button>
               {/*     <ListItemIcon>
 <img src={redLogo} className = {classes.genreImages} height={30} />
                 </ListItemIcon> */}
@@ -63,7 +63,7 @@ const SideNavBar = (setMobileOpen) => {
         <ListSubheader> SubCategories </ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.Links} to="/">
-            <ListItem onClick={() => {}} button>
+            <ListItem onClick={() => { }} button>
               {/*     <ListItemIcon>
 <img src={redLogo} className = {classes.genreImages} height={30} />
                 </ListItemIcon> */}

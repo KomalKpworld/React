@@ -17,10 +17,12 @@ module.exports = {
     'react',
   ],
   rules: {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": '1'
-    },
     
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": '1' ,
+      },
+   
+ 
     "eslint.workingDirectories": [
       "./client", 
       "./server"

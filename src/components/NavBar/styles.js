@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 let drawerWidth = 240;
 export default makeStyles((theme) => ({
-  
+
     toolbar: {
         height: '80px',
         display: ' flex',
@@ -9,7 +9,8 @@ export default makeStyles((theme) => ({
         marginLeft: '240px',
         [theme.breakpoints.down('sm')]: {
             marginLeft: '0',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+
         },
     },
     menuButton: {
@@ -18,19 +19,19 @@ export default makeStyles((theme) => ({
             display: 'none',
         },
     },
-    drawer:{
+    drawer: {
         [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
+            width: drawerWidth,
+            flexShrink: 0,
         },
     },
-    drawerPaper:{
-width: drawerWidth,
+    drawerPaper: {
+        width: drawerWidth,
     },
-    linkButton:{
-        '&:hover' : {
+    linkButton: {
+        '&:hover': {
             color: 'white !important',
-            textDecoration : 'none'
+            textDecoration: 'none'
         }
     }
 }));
