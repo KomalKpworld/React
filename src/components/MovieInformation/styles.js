@@ -30,10 +30,11 @@ export default makeStyles((theme) => ({
         },
     },
     genresContainer: {
-        margin: '10px 0 !important',
+       
         display: 'flex',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap'
+        justifyContent:'space-around',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
     genreImage: {
         filter: theme.palette.mode === 'dark' && 'invert(1)',
@@ -44,9 +45,42 @@ export default makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        TextDecoration : 'none',
         [theme.breakpoints.down('sm')]: {
             padding: '0.5rem 1rem',
+        },
+    },
+    castImage:{
+        width: '100%',
+        maxWidth: '7em',
+        height: '8em',
+        objectFit: 'cover',
+        borferRadius: '10px'
+    },
+    buttonsContainer:{
+        display: 'flex',
+        justifyContent:'space-between',
+        width: '100%',
+        [theme.breakpoints.down('sm')]: {
+           flexDirection: 'column'
         },
     }
 }
 ));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
