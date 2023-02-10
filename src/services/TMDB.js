@@ -37,10 +37,18 @@ export const tmdbApi = createApi({
             }
         
         }),
+
+        //* get Movie by id 
+        //* https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+        getMovieInfo: builder.query({
+            query: (id) => `movie/${id}?append_to_response=vidoes,credits&api_key=${tmdbApiKey}`,
+
+        }),
     }),
 });
 
 export const {
     useGetGenresQuery,
-    useGetMoviesQuery
+    useGetMoviesQuery,
+    useGetMovieInfoQuery
 } = tmdbApi;
