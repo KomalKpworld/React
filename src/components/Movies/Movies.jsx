@@ -10,7 +10,7 @@ const Movies = () => {
   const [page, setpage] = useState(1)
   const {genreIdOrCategoryName, searchQuery } = useSelector((state)=>state.currentGenreOrCategory);
   const { data, error, isFetching  } = useGetMoviesQuery({genreIdOrCategoryName, page, searchQuery });
-  console.log(data)
+
 if(isFetching){
   return(
     <Box display = 'flex' justifyContent='center'>
@@ -30,7 +30,7 @@ if(!data.results.length){
 if(error){
   return 'An error happened'
 }
-  console.log(data);
+
 
   return (
     <div>
