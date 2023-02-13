@@ -1,32 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Typography, Button, ButtonGroup, Grid, Box, ListItemIcon, CircularProgress, Rating, useMediaQuery } from '@mui/material';
-import { useGetMovieInfoQuery, useGetMoviesRecomendationQuery } from '../../services/TMDB';
+import { useGetMovieInfoQuery, useGetMoviesRecomendationQuery} from '../../services/TMDB';
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import genreIcons from '../../assets/genres';
+import { useGetListQuery } from '../../services/TMDB';
 import axios from 'axios';
-import { red } from '@mui/material/colors';
+
 import useClasses from './styles';
 import MoviesList from '../MovieList/MoviesList';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory.js';
+import Pagination from '../Pagination/Pagination';
+import { userSelector } from '../../features/auth';
 
 const MovieInformation = () => {
+
     const classes = useClasses();
     const { id } = useParams();
     const dispatch = useDispatch();
-    const isMovieFavorited = true;
-    const isMovieWatchListed = true;
-    const addToFavorites = () => {
 
-    }
-    const addToWatchList = () => {
+    //*UseSelector
+    const { user } = useSelector(userSelector);
 
-    }
-
+    //* Hooks
     const { data, error, isFetching } = useGetMovieInfoQuery(id);
+    const { data: favoriteMovies } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId: localStorage.getItem('session_id'), page: 1 })
+    const { data: watchlistMovies } = useGetListQuery({ listName: 'watchlist/movies', account: user.id, sessionId: localStorage.getItem('session_id'), page: 1 })
     const { data: recomendationData, isFetching: recomendationDataFetch } = useGetMoviesRecomendationQuery({ list: '/recommendations', movie_id: id });
 
+    //*UseState
+    const [open, setOpen] = useState(false);
+    const [isMovieFavorited, setIsMovieFavorited] = useState(false)
+    const [isMovieWatchListed, setIsMovieWatchListed] = useState(false)
+
+    //*useEffect It just callbackfunction
+useEffect(()=>{
+    setIsMovieFavorited(!!favoriteMovies?.results?.find((movie)=> movie?.id === data?.id));
+}, [favoriteMovies, data])
+useEffect(()=>{
+    setIsMovieWatchListed( !!watchlistMovies?.results?.find((movie)=> movie?.id === data?.id));
+}, [watchlistMovies, data])
+
+
+    const addToFavorites = async () => {
+        await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem(session_id)}`, {
+            media_type: 'movie',
+            media_id: id,
+            favorite: !isMovieFavorited,
+        });
+        setIsMovieFavorited((prev) => !prev)
+    }
+    const addToWatchList = async () => {
+        await axios.post(`https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${localStorage.getItem(session_id)}`, {
+            media_type: 'movie',
+            media_id: id,
+            favorite: !isMovieWatchListed,
+        });
+        setIsMovieWatchListed((prev) => !prev)
+    }
 
     if (isFetching) {
         return (
@@ -51,7 +83,7 @@ const MovieInformation = () => {
     return (
 
         <Grid container className={classes.containerSpaceAround}>
-            <Grid item sm={12} lg={4}  >
+            <Grid item sm={12} lg={4} style={{ display: 'flex', marginBottom: '30px' }} >
                 <img className={classes.poster}
                     src={data.poster_path ? `https://image.tmdb.org/t/p/w500/${data?.poster_path}` : 'https:www.fillmiurry.com/200/300'}
                     alt={data?.title}
@@ -73,7 +105,7 @@ const MovieInformation = () => {
                         </Typography>
                     </Box>
                     <Typography variant='h6' align='center' gutterBottom >
-                        {data?.runtime}min  {data?.spoken_languages.length > 0 ? `${data?.spoken_languages[0].name}` : ''}
+                        {data?.runtime}min | Language: {data?.spoken_languages[0].name}
                     </Typography>
                 </Grid>
                 <Grid item className={classes.genresContainer}>
@@ -147,6 +179,7 @@ const MovieInformation = () => {
                 </Typography>
                 {recomendationData ?
                     <MoviesList movies={recomendationData} numberOfMovies={12} /> : 'no movies found'}
+
             </Box>
         </Grid>
 

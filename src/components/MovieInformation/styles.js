@@ -8,24 +8,30 @@ export default makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
             flexWrap: 'wrap',
+            width: '100%'
         },
     },
     poster: {
         borferRadius: '20px',
         boxShadow: '0.5em 1em 1em rgb(64,64,70)',
         width: "80%",
+        
         [theme.breakpoints.down('md')]: {
             margin: '0 auto',
+            display: 'flex',
             width: '50%',
-            height: '350px',
+          justifyContent: 'center'
+           
+
+            // height: '350px',
           
         },
         [theme.breakpoints.down('sm')]: {
             margin: '0 auto',
             width: '100%',
-            height: '350px',
+            display: 'flex',
             marginBottom: '30px',
-            marginLeft:'20px'
+            
     
         },
     },

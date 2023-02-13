@@ -44,12 +44,28 @@ export const tmdbApi = createApi({
             query: (id) => `movie/${id}?append_to_response=vidoes,credits&api_key=${tmdbApiKey}`,
 
         }),
+        //* user specific lists
+        getList: builder.query({
+            query: ({listName, accountId, sessionId, page}) => `/account/${accountId}/${listName}&api_key=${tmdbApiKey}&session_id=${sessionId}&page=${page}`,
+
+        }),
+
         //https://api.themoviedb.org/3/movie/{movie_id}/lists?api_key=<<api_key>>&language=en-US&page=1
         //* GEt Movie List REcommended 
         getMoviesRecomendation: builder.query({
             query: ({movie_id,list}) => `movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
 
         }),
+        // * https://api.themoviedb.org/3/person/{person_id}?api_key=<<api_key>>&language=en-US
+        getMovieActors: builder.query({
+            query: (id) => `person/${id}?&api_key=${tmdbApiKey}`,
+
+        }),
+        getMovieActorsById: builder.query({
+            query: (id, page ) => `/discover/movie?with_cast=${id}&${page}&api_key=${tmdbApiKey}`,
+
+        }),
+        
     }),
 });
 
@@ -57,5 +73,9 @@ export const {
     useGetGenresQuery,
     useGetMoviesQuery,
     useGetMovieInfoQuery,
+     useGetListQuery,
     useGetMoviesRecomendationQuery,
+    useGetMovieActorsQuery,
+    useGetMovieActorsByIdQuery,
+    
 } = tmdbApi;
